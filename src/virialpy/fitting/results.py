@@ -25,4 +25,6 @@ class FitResult:
     r2: float
     success: bool
     message: str
-
+    r_values: np.ndarray | None = None
+    observed_values: np.ndarray | None = None
+    fitted_values: np.ndarray | None = None

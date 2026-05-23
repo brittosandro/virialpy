@@ -99,6 +99,9 @@ def fit_potential_scipy(
         r2=r2,
         success=True,
         message="Fit completed successfully using scipy.optimize.curve_fit.",
+        r_values=r,
+        observed_values=observed,
+        fitted_values=predicted,
     )
 
 
@@ -125,4 +128,3 @@ def predict_potential(
         Predicted energy values returned by ``potential_func``.
     """
     return potential_func(r, **parameters)
-
