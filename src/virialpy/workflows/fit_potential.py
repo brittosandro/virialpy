@@ -10,6 +10,7 @@ from numpy.typing import ArrayLike
 
 from virialpy.datasets import load_potential_data
 from virialpy.fitting import FitResult, fit_potential_scipy
+from virialpy.io import save_fit_metrics, save_fit_parameters, save_fit_residuals
 from virialpy.potentials import POTENTIALS
 
 
@@ -21,8 +22,9 @@ def run_fit_workflow(
     r_column: str = "r",
     energy_column: str = "energy",
     bounds: tuple[ArrayLike | float, ArrayLike | float] = (-np.inf, np.inf),
+    output_dir: str | Path | None = None,
 ) -> FitResult:
-    """Load potential data, select a registered model, and fit it with SciPy.
+    """Load potential data, select a registered model, fit it, and optionally save results.
 
     Parameters
     ----------
@@ -41,6 +43,10 @@ def run_fit_workflow(
         Name of the energy column in the input CSV.
     bounds:
         Lower and upper parameter bounds passed to the SciPy fitter.
+    output_dir:
+        Optional directory where ``fit_parameters.csv``, ``fit_metrics.csv``,
+        and ``fit_residuals.csv`` are saved. When ``None``, no files are
+        written.
 
     Returns
     -------
@@ -60,7 +66,7 @@ def run_fit_workflow(
     )
     potential_func = POTENTIALS[potential_name]
 
-    return fit_potential_scipy(
+    result = fit_potential_scipy(
         data=data,
         potential_func=potential_func,
         initial_guess=initial_guess,
@@ -69,3 +75,10 @@ def run_fit_workflow(
         bounds=bounds,
     )
 
+    if output_dir is not None:
+        output_path = Path(output_dir)
+        save_fit_parameters(result, output_path / "fit_parameters.csv")
+        save_fit_metrics(result, output_path / "fit_metrics.csv")
+        save_fit_residuals(result, output_path / "fit_residuals.csv")
+
+    return result

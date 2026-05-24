@@ -85,3 +85,35 @@ def test_run_fit_workflow_metrics_are_near_zero_for_noise_free_data(tmp_path) ->
     assert result.rmse == pytest.approx(0.0, abs=1e-10)
     assert result.mae == pytest.approx(0.0, abs=1e-10)
 
+
+def test_run_fit_workflow_does_not_save_files_when_output_dir_is_none(tmp_path) -> None:
+    csv_path = tmp_path / "lj.csv"
+    _write_lennard_jones_csv(csv_path)
+
+    run_fit_workflow(
+        csv_path,
+        "lj",
+        [100.0, 3.2],
+        ["epsilon", "sigma"],
+        output_dir=None,
+    )
+
+    assert sorted(path.name for path in tmp_path.iterdir()) == ["lj.csv"]
+
+
+def test_run_fit_workflow_saves_files_when_output_dir_is_provided(tmp_path) -> None:
+    csv_path = tmp_path / "lj.csv"
+    output_dir = tmp_path / "results" / "fit"
+    _write_lennard_jones_csv(csv_path)
+
+    run_fit_workflow(
+        csv_path,
+        "lj",
+        [100.0, 3.2],
+        ["epsilon", "sigma"],
+        output_dir=output_dir,
+    )
+
+    assert (output_dir / "fit_parameters.csv").exists()
+    assert (output_dir / "fit_metrics.csv").exists()
+    assert (output_dir / "fit_residuals.csv").exists()
