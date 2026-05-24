@@ -25,7 +25,7 @@ def main() -> None:
         result,
         output_path="outputs/figures/ar2/fit/lj_fit.png",
         title=r"Ajuste do potencial de Lennard-Jones para Ar$_2$",
-        xlabel=r"$r$ / \AA",
+        xlabel=r"$r$ / $\AA$",
         ylabel=r"$E_{\mathrm{int}}^{\mathrm{CP}}$ / kcal mol$^{-1}$",
     )
 
@@ -33,7 +33,7 @@ def main() -> None:
         result,
         output_path="outputs/figures/ar2/fit/lj_residuals.png",
         title=r"Resíduos do ajuste Lennard-Jones para Ar$_2$",
-        xlabel=r"$r$ / \AA",
+        xlabel=r"$r$ / $\AA$",
         ylabel=r"$E_{\mathrm{obs}} - E_{\mathrm{fit}}$ / kcal mol$^{-1}$",
     )
 
@@ -41,7 +41,7 @@ def main() -> None:
         result,
         output_path="outputs/figures/ar2/fit/lj_diagnostics.png",
         title=r"Diagnóstico do ajuste Lennard-Jones para Ar$_2$",
-        xlabel=r"$r$ / \AA",
+        xlabel=r"$r$ / $\AA$",
         ylabel=r"$E_{\mathrm{int}}^{\mathrm{CP}}$ / kcal mol$^{-1}$",
     )
 
