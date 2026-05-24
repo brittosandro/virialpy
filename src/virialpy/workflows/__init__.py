@@ -14,10 +14,16 @@ from virialpy.workflows.calculate_b2 import (
     load_temperatures_from_csv,
     run_b2_workflow,
 )
+from virialpy.workflows.compare_b2 import (
+    load_model_parameters_from_results,
+    run_b2_comparison_workflow,
+)
 
 __all__ = [
+    "load_model_parameters_from_results",
     "load_parameters_from_csv",
     "load_temperatures_from_csv",
+    "run_b2_comparison_workflow",
     "run_b2_workflow",
     "run_fit_workflow",
     "run_potential_comparison_workflow",
