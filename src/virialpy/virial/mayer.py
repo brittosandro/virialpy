@@ -7,6 +7,8 @@ from collections.abc import Callable
 import numpy as np
 from numpy.typing import ArrayLike, NDArray
 
+from virialpy.units import energy_to_kelvin
+
 
 def _validate_temperature(temperature: float) -> None:
     """Raise a clear error when temperature is not physically valid."""
@@ -17,6 +19,7 @@ def _validate_temperature(temperature: float) -> None:
 def mayer_function(
     energy: float | ArrayLike,
     temperature: float,
+    energy_unit: str = "kelvin",
 ) -> float | NDArray[np.float64]:
     """Evaluate the Mayer function ``f = exp[-U/T] - 1``.
 
@@ -28,6 +31,9 @@ def mayer_function(
     temperature:
         Absolute temperature in Kelvin. It must use the same reduced energy
         convention as ``energy``.
+    energy_unit:
+        Unit of ``energy``. Supported values are ``"kelvin"``, ``"kcal/mol"``,
+        ``"kj/mol"``, ``"ev"``, and ``"mev"``.
 
     Returns
     -------
@@ -38,7 +44,8 @@ def mayer_function(
     _validate_temperature(temperature)
     scalar_input = np.isscalar(energy)
     energy_array = np.asarray(energy, dtype=float)
-    values = np.exp(-energy_array / temperature) - 1.0
+    energy_kelvin = energy_to_kelvin(energy_array, energy_unit)
+    values = np.exp(-energy_kelvin / temperature) - 1.0
     if scalar_input:
         return float(values)
     return values
@@ -49,6 +56,7 @@ def mayer_integrand(
     temperature: float,
     potential_func: Callable,
     parameters: dict[str, float],
+    energy_unit: str = "kelvin",
 ) -> float | NDArray[np.float64]:
     """Evaluate the radial Mayer integrand for the second virial coefficient.
 
@@ -64,8 +72,8 @@ def mayer_integrand(
     scalar_input = np.isscalar(r)
     distance = np.asarray(r, dtype=float)
     energy = np.asarray(potential_func(distance, **parameters), dtype=float)
-    values = (1.0 - np.exp(-energy / temperature)) * distance**2
+    energy_kelvin = energy_to_kelvin(energy, energy_unit)
+    values = (1.0 - np.exp(-energy_kelvin / temperature)) * distance**2
     if scalar_input:
         return float(values)
     return values
-

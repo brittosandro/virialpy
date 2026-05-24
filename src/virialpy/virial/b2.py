@@ -35,6 +35,7 @@ def second_virial_coefficient(
     r_min: float,
     r_max: float,
     distance_unit: str = "angstrom",
+    energy_unit: str = "kelvin",
 ) -> tuple[float, float | None]:
     """Calculate the second virial coefficient ``B(T)`` in cm^3/mol.
 
@@ -58,6 +59,9 @@ def second_virial_coefficient(
     distance_unit:
         Distance unit for the integration coordinate. Supported values are
         ``"angstrom"``, ``"pm"``, and ``"meter"``.
+    energy_unit:
+        Energy unit returned by ``potential_func``. Supported values are
+        ``"kelvin"``, ``"kcal/mol"``, ``"kj/mol"``, ``"ev"``, and ``"mev"``.
 
     Returns
     -------
@@ -68,11 +72,10 @@ def second_virial_coefficient(
     _validate_inputs(temperature, r_min, r_max, distance_unit)
 
     def integrand(r):
-        return mayer_integrand(r, temperature, potential_func, parameters)
+        return mayer_integrand(r, temperature, potential_func, parameters, energy_unit=energy_unit)
 
     integral, integration_error = integrator.integrate(integrand, r_min, r_max)
     scale = 2.0 * np.pi * AVOGADRO_CONSTANT * _DISTANCE_TO_CM3[distance_unit]
     b2_value = scale * integral
     b2_error = None if integration_error is None else scale * integration_error
     return float(b2_value), None if b2_error is None else float(b2_error)
-

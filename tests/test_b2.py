@@ -4,6 +4,7 @@ import pytest
 
 from virialpy.constants import AVOGADRO_CONSTANT
 from virialpy.integrators import ScipyQuadIntegrator
+from virialpy.units import kcal_per_mol_to_kelvin
 from virialpy.virial import mayer_function, mayer_integrand, second_virial_coefficient
 
 
@@ -13,6 +14,14 @@ def zero_potential(r, **parameters):
 
 def positive_temperature_potential(r, **parameters):
     return parameters["temperature"] + 0.0 * r
+
+
+def one_kcal_per_mol_potential(r, **parameters):
+    return 1.0 + 0.0 * r
+
+
+def one_kcal_per_mol_in_kelvin_potential(r, **parameters):
+    return kcal_per_mol_to_kelvin(1.0) + 0.0 * r
 
 
 def negative_temperature_potential(r, **parameters):
@@ -85,6 +94,23 @@ def test_second_virial_coefficient_is_zero_for_zero_potential() -> None:
     assert error == pytest.approx(0.0)
 
 
+def test_second_virial_coefficient_keeps_previous_kelvin_behavior() -> None:
+    temperature = 100.0
+    value, _ = second_virial_coefficient(
+        temperature=temperature,
+        potential_func=positive_temperature_potential,
+        parameters={"temperature": temperature},
+        integrator=ScipyQuadIntegrator(),
+        r_min=0.0,
+        r_max=1.0,
+        energy_unit="kelvin",
+    )
+    expected_integral_factor = (1.0 - math.exp(-1.0)) / 3.0
+    expected = 2.0 * math.pi * AVOGADRO_CONSTANT * expected_integral_factor * 1e-24
+
+    assert value == pytest.approx(expected)
+
+
 def test_second_virial_coefficient_is_positive_for_constant_repulsive_potential() -> None:
     temperature = 100.0
     value, _ = second_virial_coefficient(
@@ -154,3 +180,38 @@ def test_second_virial_coefficient_unit_conversion_is_consistent_between_angstro
     assert value_angstrom == pytest.approx(expected_angstrom)
     assert value_pm == pytest.approx(value_angstrom)
 
+
+def test_second_virial_coefficient_converts_kcal_per_mol_to_kelvin() -> None:
+    value_kcal, _ = second_virial_coefficient(
+        temperature=300.0,
+        potential_func=one_kcal_per_mol_potential,
+        parameters={},
+        integrator=ScipyQuadIntegrator(),
+        r_min=0.0,
+        r_max=1.0,
+        energy_unit="kcal/mol",
+    )
+    value_kelvin, _ = second_virial_coefficient(
+        temperature=300.0,
+        potential_func=one_kcal_per_mol_in_kelvin_potential,
+        parameters={},
+        integrator=ScipyQuadIntegrator(),
+        r_min=0.0,
+        r_max=1.0,
+        energy_unit="kelvin",
+    )
+
+    assert value_kcal == pytest.approx(value_kelvin)
+
+
+def test_second_virial_coefficient_raises_error_for_invalid_energy_unit() -> None:
+    with pytest.raises(ValueError, match="Unsupported energy_unit"):
+        second_virial_coefficient(
+            temperature=300.0,
+            potential_func=one_kcal_per_mol_potential,
+            parameters={},
+            integrator=ScipyQuadIntegrator(),
+            r_min=0.0,
+            r_max=1.0,
+            energy_unit="hartree",
+        )
