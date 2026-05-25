@@ -39,3 +39,7 @@ outputs/reports/*
 *.tmp
 *.bak
 *.log
+
+# Build artifacts
+build/
+dist/

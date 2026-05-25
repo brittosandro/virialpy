@@ -1,43 +1,109 @@
 # virialpy
 
-`virialpy` é um pacote Python científico para:
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/)
+[![Tests](https://img.shields.io/badge/tests-pytest-green)](https://docs.pytest.org/)
+[![License](https://img.shields.io/badge/license-GPL--3.0--or--later-blue)](LICENSE)
 
-- ajustar potenciais intermoleculares `U(r)`;
-- calcular o segundo coeficiente do virial `B2(T)`;
-- comparar resultados calculados com dados experimentais;
-- avaliar diferentes potenciais, integradores e metodologias de integração;
-- gerar tabelas e figuras para análise científica.
+`virialpy` is a scientific Python package for fitting intermolecular potentials `U(r)`, calculating the second virial coefficient `B(T)`, comparing calculated values with experimental data, evaluating numerical integrators and generating figures and tables for scientific analysis.
 
-## Motivação científica
+The current reproducible case study is Ar2, including LJ, ILJ and Rydberg6 potentials, direct and partitioned virial integration, Monte Carlo comparisons and publication-style outputs.
 
-O segundo coeficiente do virial conecta propriedades macroscópicas de gases reais com a interação microscópica entre pares moleculares. Ao combinar potenciais intermoleculares ajustados, integração numérica e dados experimentais, o `virialpy` ajuda a investigar como a forma de `U(r)` afeta `B2(T)`.
+## Scientific Motivation
 
-## Funcionalidades atuais
+The second virial coefficient connects the macroscopic behavior of real gases with microscopic pair interactions. By fitting intermolecular potentials and propagating them into `B(T)`, `virialpy` helps evaluate how model choices, integration strategies and fitted parameters affect thermodynamic predictions.
 
-- leitura de dados teóricos `U(r)`;
-- leitura de dados experimentais `B2(T)`;
-- potenciais LJ, ILJ e Rydberg6;
-- ajuste de potenciais com SciPy;
-- exportação de parâmetros, resíduos e métricas;
-- gráficos individuais e comparativos dos ajustes;
-- integradores numéricos:
-  - SciPy quad;
-  - Gauss-Legendre;
-  - Simpson;
-  - Trapézio;
-  - Monte Carlo;
-- cálculo direto de `B2(T)`;
-- cálculo particionado de `B2(T)`;
-- comparação com dados experimentais;
-- métricas estatísticas;
-- tabelas finais em CSV e LaTeX;
-- figuras finais para relatório/artigo.
+## Quick Start
 
-## Estrutura do projeto
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+pip install -e .
+pytest
+virialpy ar2 full-pipeline
+```
+
+## Main Features
+
+- Read theoretical potential energy data `U(r)`.
+- Read experimental virial coefficient data.
+- Evaluate LJ, ILJ and Rydberg6 intermolecular potentials.
+- Fit potentials with SciPy.
+- Export fitted parameters, residuals and metrics.
+- Generate individual and comparative fit plots.
+- Integrate with SciPy quad, Gauss-Legendre, Simpson, trapezoid and Monte Carlo.
+- Calculate direct `B(T)`.
+- Calculate partitioned `B(T)` in radial regions.
+- Compare calculated values with experiment.
+- Calculate statistical metrics.
+- Export final tables in CSV and LaTeX.
+- Generate final figures for reports, articles and dissertations.
+- Run the Ar2 workflow from a Typer command-line interface.
+
+## Ar2 Reproducible Workflow
+
+The complete Ar2 workflow can be executed with:
+
+```bash
+virialpy ar2 full-pipeline
+```
+
+Equivalent scripts remain available in `scripts/` for transparency and reproducibility:
+
+```bash
+python3 scripts/run_compare_potentials_ar2.py
+python3 scripts/run_b2_comparison_ar2.py
+python3 scripts/run_b2_validation_ar2.py
+python3 scripts/run_partitioned_b2_ar2.py
+python3 scripts/run_b2_method_comparison_ar2.py
+python3 scripts/run_monte_carlo_comparison_ar2.py
+python3 scripts/gerar_figuras_tabelas_finais_ar2.py
+```
+
+## Command-Line Interface
+
+After installing in editable mode, use:
+
+```bash
+virialpy --help
+virialpy ar2 --help
+virialpy ar2 fit
+virialpy ar2 b2
+virialpy ar2 validate
+virialpy ar2 partitioned
+virialpy ar2 methods
+virialpy ar2 monte-carlo
+virialpy ar2 figures
+virialpy ar2 full-pipeline
+```
+
+The CLI calls the existing reproducible scripts and is the recommended terminal interface for the Ar2 case study.
+
+## Outputs
+
+Project outputs follow these conventions:
+
+```text
+data/results/<system>/<model>/
+outputs/figures/<system>/<stage>/
+outputs/reports/<system>/tables/
+```
+
+For Ar2, the final figures and tables are generated in:
+
+```text
+outputs/figures/ar2/final/
+outputs/reports/ar2/tables/
+```
+
+Large generated files should be avoided in Git. Small raw example datasets required to reproduce the Ar2 study may be kept in `data/raw/`; large raw datasets should be documented and stored externally.
+
+## Project Structure
 
 ```text
 virialpy/
 ├── data/
+├── docs/
 ├── examples/
 ├── legacy/
 ├── outputs/
@@ -46,49 +112,18 @@ virialpy/
 └── tests/
 ```
 
-- `data/`: dados brutos, processados e resultados numéricos.
-- `examples/`: exemplos e templates de sistemas.
-- `legacy/`: scripts antigos usados como referência científica.
-- `outputs/`: figuras, relatórios e tabelas finais.
-- `scripts/`: scripts reproduzíveis para o estudo de caso Ar2.
-- `src/virialpy/`: código-fonte do pacote.
-- `tests/`: testes automatizados.
+- `data/`: raw example data and generated numerical results.
+- `docs/`: workflow, data-format and developer documentation.
+- `examples/`: example systems and templates.
+- `legacy/`: reference scripts used during scientific development.
+- `outputs/`: generated figures, reports and final tables.
+- `scripts/`: reproducible Ar2 execution scripts.
+- `src/virialpy/`: package source code.
+- `tests/`: automated test suite.
 
-## Instalação
+## Input Data Format
 
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip
-pip install -e .
-```
-
-## Testes
-
-```bash
-pytest
-```
-
-Os testes verificam potenciais, leitura de dados, ajuste, integradores, cálculo de `B2`, validação experimental, gráficos e tabelas.
-
-## CLI
-
-Depois da instalação em modo editável, a forma recomendada de executar os workflows principais é a CLI:
-
-```bash
-virialpy --help
-virialpy ar2 --help
-virialpy ar2 fit
-virialpy ar2 b2
-virialpy ar2 validate
-virialpy ar2 full-pipeline
-```
-
-Os scripts em `scripts/` continuam disponíveis para execução direta e para fins de reprodutibilidade, mas a CLI fornece uma interface mais conveniente para uso no terminal.
-
-## Formato dos dados de entrada
-
-Dados de potencial no formato padrão:
+Potential data can use the default columns:
 
 ```csv
 r,energy
@@ -97,7 +132,7 @@ r,energy
 4.0,-0.2
 ```
 
-Também é possível usar colunas personalizadas, por exemplo:
+Custom columns are also supported:
 
 ```csv
 r(angstrom),E_int_CP(kcal/mol)
@@ -106,7 +141,7 @@ r(angstrom),E_int_CP(kcal/mol)
 4.0,-0.230
 ```
 
-Dados experimentais de virial no formato padrão:
+Experimental data can use:
 
 ```csv
 temperature,b2
@@ -114,14 +149,16 @@ temperature,b2
 200,-45.0
 ```
 
-No estudo de caso Ar2, o arquivo experimental usa:
+The Ar2 experimental file currently uses:
 
 ```csv
 Temperatura,B(segundo coef. virial) [cm³/mol]
 100.3086419753086,-183.7441314553991
 ```
 
-## Exemplo rápido: ajuste de potencial
+## Python Examples
+
+Fit a Lennard-Jones potential directly:
 
 ```python
 from virialpy.datasets import load_potential_data
@@ -143,7 +180,7 @@ result = fit_potential_scipy(
 )
 ```
 
-## Exemplo rápido: workflow de ajuste
+Run the high-level fitting workflow:
 
 ```python
 from virialpy.workflows import run_fit_workflow
@@ -159,118 +196,34 @@ result = run_fit_workflow(
 )
 ```
 
-## Exemplo rápido: comparação entre potenciais
+## Adding New Potentials
 
-Via CLI:
+1. Create a module in `src/virialpy/potentials/`.
+2. Implement a general `U(r)` function.
+3. Register it in `src/virialpy/potentials/registry.py`.
+4. Export it from `src/virialpy/potentials/__init__.py` when appropriate.
+5. Add tests in `tests/`.
 
-```bash
-virialpy ar2 fit
-```
+## Adding New Integrators
 
-Ou via script:
+1. Create a class that inherits from `BaseIntegrator`.
+2. Implement `integrate(function, lower, upper)`.
+3. Return `(value, error)`.
+4. Export the class from `src/virialpy/integrators/__init__.py`.
+5. Add tests against simple analytical integrals.
 
-```bash
-python3 scripts/run_compare_potentials_ar2.py
-```
+## Units
 
-## Exemplo rápido: cálculo de B2
+- The distance unit of `r` must be consistent with `sigma`, `req` or `re`.
+- The energy unit of fitted potential parameters must be passed to virial calculations through `energy_unit`.
+- `B(T)` is returned in `cm³/mol`.
+- Supported `distance_unit` values are `angstrom`, `pm` and `meter`.
+- Supported `energy_unit` values are `kelvin`, `kcal/mol`, `kj/mol`, `ev` and `mev`.
 
-Via CLI:
+## Citation
 
-```bash
-virialpy ar2 b2
-```
+If you use `virialpy`, please cite it using the metadata in [CITATION.cff](CITATION.cff).
 
-Ou via script:
+## License
 
-```bash
-python3 scripts/run_b2_comparison_ar2.py
-```
-
-## Exemplo rápido: validação experimental
-
-Via CLI:
-
-```bash
-virialpy ar2 validate
-```
-
-Ou via script:
-
-```bash
-python3 scripts/run_b2_validation_ar2.py
-```
-
-## Exemplo rápido: método particionado
-
-```bash
-python3 scripts/run_partitioned_b2_ar2.py
-```
-
-## Exemplo rápido: comparação Monte Carlo
-
-```bash
-python3 scripts/run_monte_carlo_comparison_ar2.py
-```
-
-## Gerar figuras e tabelas finais
-
-Via CLI:
-
-```bash
-virialpy ar2 figures
-```
-
-Ou via script:
-
-```bash
-python3 scripts/gerar_figuras_tabelas_finais_ar2.py
-```
-
-As saídas principais ficam em:
-
-```text
-outputs/figures/ar2/final/
-outputs/reports/ar2/tables/
-```
-
-## Como adicionar um novo potencial
-
-1. Crie um arquivo em `src/virialpy/potentials/`.
-2. Implemente a função `U(r)`.
-3. Registre a função em `src/virialpy/potentials/registry.py`.
-4. Exporte em `src/virialpy/potentials/__init__.py`, se necessário.
-5. Crie testes em `tests/`.
-
-## Como adicionar um novo integrador
-
-1. Crie uma classe que herda `BaseIntegrator`.
-2. Implemente `integrate(function, lower, upper)`.
-3. Registre/importe em `src/virialpy/integrators/__init__.py`.
-4. Crie testes em `tests/`.
-
-## Organização dos resultados
-
-Convenção recomendada:
-
-```text
-data/results/<sistema>/<modelo>/
-outputs/figures/<sistema>/<etapa>/
-outputs/reports/<sistema>/tables/
-```
-
-## Observações sobre unidades
-
-- A unidade de `r` deve ser consistente com `sigma`, `req` ou `re`.
-- A unidade de energia dos parâmetros ajustados deve ser informada no cálculo de `B2` por `energy_unit`.
-- `B2` é retornado em `cm³/mol`.
-- `distance_unit` pode ser `angstrom`, `pm` ou `meter`.
-- `energy_unit` pode ser `kelvin`, `kcal/mol`, `kj/mol`, `ev` ou `mev`.
-
-## Status do projeto
-
-O projeto está em desenvolvimento. Atualmente, o Ar2 é o principal estudo de caso usado para validar e demonstrar os workflows.
-
-## Licença
-
-Consulte o arquivo [LICENSE](LICENSE).
+`virialpy` is distributed under the GNU General Public License v3.0 or later, `GPL-3.0-or-later`. See [LICENSE](LICENSE) for the full license text.
