@@ -147,31 +147,31 @@ result = run_fit_workflow(
 ## Exemplo rápido: comparação entre potenciais
 
 ```bash
-python3 scripts/teste_compare_potentials_ar2.py
+python3 scripts/run_compare_potentials_ar2.py
 ```
 
 ## Exemplo rápido: cálculo de B2
 
 ```bash
-python3 scripts/teste_b2_comparison_ar2.py
+python3 scripts/run_b2_comparison_ar2.py
 ```
 
 ## Exemplo rápido: validação experimental
 
 ```bash
-python3 scripts/teste_b2_validation_ar2.py
+python3 scripts/run_b2_validation_ar2.py
 ```
 
 ## Exemplo rápido: método particionado
 
 ```bash
-python3 scripts/teste_partitioned_b2_ar2.py
+python3 scripts/run_partitioned_b2_ar2.py
 ```
 
 ## Exemplo rápido: comparação Monte Carlo
 
 ```bash
-python3 scripts/teste_monte_carlo_comparison_ar2.py
+python3 scripts/run_monte_carlo_comparison_ar2.py
 ```
 
 ## Gerar figuras e tabelas finais
@@ -227,4 +227,3 @@ O projeto está em desenvolvimento. Atualmente, o Ar2 é o principal estudo de c
 ## Licença
 
 Consulte o arquivo [LICENSE](LICENSE).
-

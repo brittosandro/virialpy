@@ -14,14 +14,12 @@ venv/
 env/
 
 # Scientific outputs
-data/raw/*
 data/processed/*
 data/results/*
 outputs/figures/*
 outputs/reports/*
 
 # Keep directory placeholders
-!data/raw/.gitkeep
 !data/processed/.gitkeep
 !data/results/.gitkeep
 !outputs/figures/.gitkeep
@@ -34,4 +32,10 @@ outputs/reports/*
 .DS_Store
 .idea/
 .vscode/
+.agents/
+.codex/
 
+# Temporary files
+*.tmp
+*.bak
+*.log

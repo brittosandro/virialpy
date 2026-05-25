@@ -8,12 +8,12 @@ from pathlib import Path
 
 
 SCRIPTS = [
-    "teste_compare_potentials_ar2.py",
-    "teste_b2_comparison_ar2.py",
-    "teste_b2_validation_ar2.py",
-    "teste_partitioned_b2_ar2.py",
-    "teste_b2_method_comparison_ar2.py",
-    "teste_monte_carlo_comparison_ar2.py",
+    "run_compare_potentials_ar2.py",
+    "run_b2_comparison_ar2.py",
+    "run_b2_validation_ar2.py",
+    "run_partitioned_b2_ar2.py",
+    "run_b2_method_comparison_ar2.py",
+    "run_monte_carlo_comparison_ar2.py",
     "gerar_figuras_tabelas_finais_ar2.py",
 ]
 
@@ -33,4 +33,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

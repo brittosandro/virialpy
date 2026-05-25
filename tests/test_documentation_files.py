@@ -20,3 +20,15 @@ def test_developer_notes_doc_exists() -> None:
 def test_full_pipeline_script_exists() -> None:
     assert Path("scripts/run_ar2_full_pipeline.py").exists()
 
+
+def test_main_ar2_scripts_exist() -> None:
+    scripts = [
+        "scripts/run_compare_potentials_ar2.py",
+        "scripts/run_b2_comparison_ar2.py",
+        "scripts/run_b2_validation_ar2.py",
+        "scripts/run_partitioned_b2_ar2.py",
+        "scripts/run_b2_method_comparison_ar2.py",
+        "scripts/run_monte_carlo_comparison_ar2.py",
+    ]
+    for script in scripts:
+        assert Path(script).exists()

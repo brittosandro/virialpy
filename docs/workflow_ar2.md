@@ -22,7 +22,7 @@ E_int_CP(kcal/mol)
 O ajuste e a comparação entre LJ, ILJ e Rydberg6 podem ser executados com:
 
 ```bash
-python3 scripts/teste_compare_potentials_ar2.py
+python3 scripts/run_compare_potentials_ar2.py
 ```
 
 Esse script salva parâmetros, métricas, resíduos e figuras de ajuste.
@@ -40,7 +40,7 @@ outputs/figures/ar2/fit/
 Execute:
 
 ```bash
-python3 scripts/teste_b2_comparison_ar2.py
+python3 scripts/run_b2_comparison_ar2.py
 ```
 
 Esse script calcula `B2(T)` para múltiplos potenciais e integradores.
@@ -50,7 +50,7 @@ Esse script calcula `B2(T)` para múltiplos potenciais e integradores.
 Execute:
 
 ```bash
-python3 scripts/teste_partitioned_b2_ar2.py
+python3 scripts/run_partitioned_b2_ar2.py
 ```
 
 O método particionado usa regiões de integração inspiradas no script legado.
@@ -60,7 +60,7 @@ O método particionado usa regiões de integração inspiradas no script legado.
 Execute:
 
 ```bash
-python3 scripts/teste_b2_validation_ar2.py
+python3 scripts/run_b2_validation_ar2.py
 ```
 
 O arquivo experimental usado é:
@@ -74,7 +74,7 @@ data/raw/ar2/b2_experimental.csv
 Execute:
 
 ```bash
-python3 scripts/teste_monte_carlo_comparison_ar2.py
+python3 scripts/run_monte_carlo_comparison_ar2.py
 ```
 
 Essa etapa compara o integrador Monte Carlo contra SciPy quad, Gauss-Legendre, Simpson e Trapézio.
@@ -106,4 +106,3 @@ Para executar todas as etapas principais na ordem recomendada:
 ```bash
 python3 scripts/run_ar2_full_pipeline.py
 ```
-
