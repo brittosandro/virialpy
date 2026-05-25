@@ -71,6 +71,21 @@ pytest
 
 Os testes verificam potenciais, leitura de dados, ajuste, integradores, cálculo de `B2`, validação experimental, gráficos e tabelas.
 
+## CLI
+
+Depois da instalação em modo editável, a forma recomendada de executar os workflows principais é a CLI:
+
+```bash
+virialpy --help
+virialpy ar2 --help
+virialpy ar2 fit
+virialpy ar2 b2
+virialpy ar2 validate
+virialpy ar2 full-pipeline
+```
+
+Os scripts em `scripts/` continuam disponíveis para execução direta e para fins de reprodutibilidade, mas a CLI fornece uma interface mais conveniente para uso no terminal.
+
 ## Formato dos dados de entrada
 
 Dados de potencial no formato padrão:
@@ -146,17 +161,41 @@ result = run_fit_workflow(
 
 ## Exemplo rápido: comparação entre potenciais
 
+Via CLI:
+
+```bash
+virialpy ar2 fit
+```
+
+Ou via script:
+
 ```bash
 python3 scripts/run_compare_potentials_ar2.py
 ```
 
 ## Exemplo rápido: cálculo de B2
 
+Via CLI:
+
+```bash
+virialpy ar2 b2
+```
+
+Ou via script:
+
 ```bash
 python3 scripts/run_b2_comparison_ar2.py
 ```
 
 ## Exemplo rápido: validação experimental
+
+Via CLI:
+
+```bash
+virialpy ar2 validate
+```
+
+Ou via script:
 
 ```bash
 python3 scripts/run_b2_validation_ar2.py
@@ -175,6 +214,14 @@ python3 scripts/run_monte_carlo_comparison_ar2.py
 ```
 
 ## Gerar figuras e tabelas finais
+
+Via CLI:
+
+```bash
+virialpy ar2 figures
+```
+
+Ou via script:
 
 ```bash
 python3 scripts/gerar_figuras_tabelas_finais_ar2.py

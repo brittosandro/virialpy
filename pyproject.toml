@@ -29,7 +29,7 @@ dev = [
 ]
 
 [project.scripts]
-virialpy = "virialpy.cli:app"
+virialpy = "virialpy.cli.main:app"
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -37,4 +37,3 @@ where = ["src"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]
-

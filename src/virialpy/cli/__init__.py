@@ -1,10 +1,6 @@
-"""Command-line interface for virialpy.
+"""Command-line interface for virialpy."""
 
-The Typer application is intentionally minimal for now and will grow as stable
-scientific workflows become available.
-"""
+from virialpy.cli.main import app
 
-import typer
-
-app = typer.Typer(help="Scientific tools for virial coefficient workflows.")
+__all__ = ["app"]
 
