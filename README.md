@@ -139,6 +139,8 @@ virialpy run-config configs/ar2.yaml
 
 The example [configs/ar2.yaml](configs/ar2.yaml) defines the molecular system, input files, column names, potentials, integrators, units, integration bounds and output directories. See [docs/configuration.md](docs/configuration.md) for the full configuration reference.
 
+YAML execution can control potential fitting, direct `B(T)`, experimental validation, partitioned `B(T)`, direct-vs-partitioned comparison, Monte Carlo plots, final figures and final CSV/LaTeX tables.
+
 ## Outputs
 
 Project outputs follow these conventions:

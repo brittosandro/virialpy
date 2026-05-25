@@ -101,3 +101,50 @@ def test_validate_run_config_rejects_non_boolean_run_flags(field: str) -> None:
 
     with pytest.raises(ValueError, match=field):
         validate_run_config(config)
+
+
+def test_validate_run_config_accepts_valid_partitioned_section() -> None:
+    config = valid_config()
+    config["partitioned"] = {
+        "enabled": True,
+        "r1": 3.0,
+        "r2": 4.0,
+        "r3": 10.0,
+        "r4": 20.0,
+        "integrator_b2": {"name": "gaussian", "n_points": 6},
+        "integrator_b3": {"name": "gaussian", "n_points": 10},
+        "integrator_b4": {"name": "gaussian", "n_points": 24},
+    }
+
+    validate_run_config(config)
+
+
+def test_validate_run_config_rejects_enabled_partitioned_without_limits() -> None:
+    config = valid_config()
+    config["partitioned"] = {"enabled": True, "r1": 3.0, "r2": 4.0, "r3": 10.0}
+
+    with pytest.raises(ValueError, match="r4"):
+        validate_run_config(config)
+
+
+def test_validate_run_config_rejects_partitioned_limits_out_of_order() -> None:
+    config = valid_config()
+    config["partitioned"] = {
+        "enabled": True,
+        "r1": 3.0,
+        "r2": 4.0,
+        "r3": 4.0,
+        "r4": 20.0,
+    }
+
+    with pytest.raises(ValueError, match="limits"):
+        validate_run_config(config)
+
+
+@pytest.mark.parametrize("field", ["partitioned", "method_comparison", "final_outputs"])
+def test_validate_run_config_rejects_non_boolean_optional_run_flags(field: str) -> None:
+    config = valid_config()
+    config["run"][field] = "yes"
+
+    with pytest.raises(ValueError, match=field):
+        validate_run_config(config)

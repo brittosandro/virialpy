@@ -75,3 +75,27 @@ def validate_run_config(config: dict[str, Any]) -> None:
             raise ValueError(f"run.{field} must be a boolean.")
     if "monte_carlo_plots" in run and not isinstance(run["monte_carlo_plots"], bool):
         raise ValueError("run.monte_carlo_plots must be a boolean.")
+    for field in ["partitioned", "method_comparison", "final_outputs"]:
+        if field in run and not isinstance(run[field], bool):
+            raise ValueError(f"run.{field} must be a boolean.")
+
+    if "partitioned" in config:
+        partitioned = _require_section(config, "partitioned")
+        _require_fields(partitioned, "partitioned", ["enabled"])
+        if not isinstance(partitioned["enabled"], bool):
+            raise ValueError("partitioned.enabled must be a boolean.")
+        if partitioned["enabled"]:
+            _require_fields(partitioned, "partitioned", ["r1", "r2", "r3", "r4"])
+            limits = [partitioned[key] for key in ["r1", "r2", "r3", "r4"]]
+            if not all(isinstance(value, Real) for value in limits):
+                raise ValueError("partitioned.r1, r2, r3 and r4 must be numeric.")
+            r1, r2, r3, r4 = limits
+            if not (0 < r1 < r2 < r3 < r4):
+                raise ValueError("partitioned limits must obey 0 < r1 < r2 < r3 < r4.")
+            for field in ["integrator_b2", "integrator_b3", "integrator_b4"]:
+                if field in partitioned:
+                    integrator_config = partitioned[field]
+                    if not isinstance(integrator_config, dict):
+                        raise ValueError(f"partitioned.{field} must be a mapping.")
+                    if "name" not in integrator_config:
+                        raise ValueError(f"partitioned.{field} must contain a 'name' field.")

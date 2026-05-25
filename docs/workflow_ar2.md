@@ -79,8 +79,11 @@ virialpy run-config configs/ar2.yaml
 ```
 
 O arquivo `configs/ar2.yaml` define dados de entrada, colunas, potenciais,
-integradores, unidades, limites de integração e diretórios de saída. Consulte
-`docs/configuration.md` para a referência completa.
+integradores, unidades, limites de integração e diretórios de saída. Ele
+também pode controlar ajuste, cálculo direto de `B(T)`, validação experimental,
+cálculo particionado, comparação direto vs particionado, gráficos Monte Carlo,
+figuras finais e tabelas finais em CSV/LaTeX. Consulte `docs/configuration.md`
+para a referência completa.
 
 ## 1. Dados de entrada U(r)
 

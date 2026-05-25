@@ -24,6 +24,22 @@ b2:
   r_min: 2.5
   r_max: 30.0
 
+partitioned:
+  enabled: true
+  r1: 3.052
+  r2: 3.7578
+  r3: 13.0391
+  r4: 30.0
+  integrator_b2:
+    name: gaussian
+    n_points: 6
+  integrator_b3:
+    name: gaussian
+    n_points: 10
+  integrator_b4:
+    name: gaussian
+    n_points: 24
+
 outputs:
   results_dir: data/results/ar2_config
   figures_dir: outputs/figures/ar2_config
@@ -33,4 +49,7 @@ run:
   fit: true
   b2: true
   validate: true
+  partitioned: true
+  method_comparison: true
   monte_carlo_plots: true
+  final_outputs: true
