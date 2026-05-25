@@ -56,6 +56,24 @@ def _run_script(script_name: str, description: str) -> None:
     typer.echo(f"Finished: {description}")
 
 
+@app.command("run-config")
+def run_config(
+    config_path: Annotated[
+        Path,
+        typer.Argument(exists=True, file_okay=True, dir_okay=False, help="YAML configuration file."),
+    ],
+) -> None:
+    """Run a workflow from a YAML configuration file."""
+    from virialpy.workflows import run_from_config
+
+    typer.echo(f"Running configuration: {config_path}")
+    try:
+        outputs = run_from_config(config_path)
+    except Exception as exc:
+        _abort(exc)
+    typer.echo(f"Configuration run completed. Results: {outputs['results_dir']}")
+
+
 def normalize_potentials(potentials: list[str]) -> list[str]:
     """Normalize potential names accepted by the general CLI."""
     supported = ["lj", "ilj", "ryd6"]
@@ -237,6 +255,7 @@ def _run_general_validate(
     b2_column: str,
     results_dir: Path,
     figures_dir: Path,
+    generate_monte_carlo_plots: bool = True,
 ) -> None:
     """Validate calculated B(T) values and generate standard figures."""
     from virialpy.plotting import plot_b2_comparison, plot_b2_metrics, plot_b2_residuals
@@ -286,11 +305,12 @@ def _run_general_validate(
     )
     typer.echo(f"[{system}] Validation tables saved to {results_dir}")
     typer.echo(f"[{system}] Validation figures saved to {b2_figures_dir}")
-    _generate_general_monte_carlo_outputs(
-        system=system,
-        results_dir=results_dir,
-        figures_dir=figures_dir,
-    )
+    if generate_monte_carlo_plots:
+        _generate_general_monte_carlo_outputs(
+            system=system,
+            results_dir=results_dir,
+            figures_dir=figures_dir,
+        )
 
 
 def _generate_general_monte_carlo_outputs(

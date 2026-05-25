@@ -70,6 +70,18 @@ virialpy run full \
     --reports-dir outputs/reports/ar2_general_cli
 ```
 
+## Execução por arquivo YAML
+
+O mesmo fluxo geral pode ser descrito em um arquivo YAML:
+
+```bash
+virialpy run-config configs/ar2.yaml
+```
+
+O arquivo `configs/ar2.yaml` define dados de entrada, colunas, potenciais,
+integradores, unidades, limites de integração e diretórios de saída. Consulte
+`docs/configuration.md` para a referência completa.
+
 ## 1. Dados de entrada U(r)
 
 O arquivo principal de energia potencial está em:

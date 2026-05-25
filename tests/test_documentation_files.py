@@ -17,6 +17,14 @@ def test_developer_notes_doc_exists() -> None:
     assert Path("docs/developer_notes.md").exists()
 
 
+def test_configuration_doc_exists() -> None:
+    assert Path("docs/configuration.md").exists()
+
+
+def test_ar2_config_exists() -> None:
+    assert Path("configs/ar2.yaml").exists()
+
+
 def test_full_pipeline_script_exists() -> None:
     assert Path("scripts/run_ar2_full_pipeline.py").exists()
 

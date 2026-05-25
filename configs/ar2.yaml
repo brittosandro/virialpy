@@ -1,0 +1,36 @@
+system: ar2
+
+data:
+  potential_data: data/raw/ar2/ar2_cep_bsse.csv
+  experimental_data: data/raw/ar2/b2_experimental.csv
+  r_column: "r(angstrom)"
+  energy_column: "E_int_CP(kcal/mol)"
+  temperature_column: "Temperatura"
+  b2_column: "B(segundo coef. virial) [cm³/mol]"
+
+models:
+  potentials:
+    - all
+
+integrators:
+  names:
+    - all
+
+units:
+  distance_unit: angstrom
+  energy_unit: kcal/mol
+
+b2:
+  r_min: 2.5
+  r_max: 30.0
+
+outputs:
+  results_dir: data/results/ar2_config
+  figures_dir: outputs/figures/ar2_config
+  reports_dir: outputs/reports/ar2_config
+
+run:
+  fit: true
+  b2: true
+  validate: true
+  monte_carlo_plots: true

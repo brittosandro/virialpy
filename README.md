@@ -129,6 +129,16 @@ virialpy run full \
     --reports-dir outputs/reports/ar2_general_cli
 ```
 
+## YAML Configuration
+
+The same general workflow can be described in a YAML file and executed with one command:
+
+```bash
+virialpy run-config configs/ar2.yaml
+```
+
+The example [configs/ar2.yaml](configs/ar2.yaml) defines the molecular system, input files, column names, potentials, integrators, units, integration bounds and output directories. See [docs/configuration.md](docs/configuration.md) for the full configuration reference.
+
 ## Outputs
 
 Project outputs follow these conventions:

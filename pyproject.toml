@@ -29,6 +29,7 @@ dependencies = [
   "matplotlib",
   "seaborn",
   "lmfit",
+  "PyYAML",
   "typer",
   "pytest",
 ]
