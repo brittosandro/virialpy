@@ -25,7 +25,13 @@ from virialpy.plotting.b2_method_plots import (
     plot_b2_methods_vs_experiment,
     plot_partitioned_contributions,
 )
-from virialpy.plotting.style import set_plot_style
+from virialpy.plotting.final_b2_plots import (
+    plot_final_b2_comparison,
+    plot_final_b2_residuals,
+    plot_final_method_comparison,
+    plot_final_metric_ranking,
+)
+from virialpy.plotting.style import set_plot_style, set_publication_style
 
 __all__ = [
     "plot_b2_comparison",
@@ -38,8 +44,13 @@ __all__ = [
     "plot_fit_diagnostics",
     "plot_fit_residuals",
     "plot_fit_result",
+    "plot_final_b2_comparison",
+    "plot_final_b2_residuals",
+    "plot_final_method_comparison",
+    "plot_final_metric_ranking",
     "plot_multiple_fits",
     "plot_multiple_residuals",
     "plot_partitioned_contributions",
     "set_plot_style",
+    "set_publication_style",
 ]

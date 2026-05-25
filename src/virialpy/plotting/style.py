@@ -5,8 +5,8 @@ from __future__ import annotations
 import matplotlib as mpl
 
 
-def set_plot_style() -> None:
-    """Configure a clean scientific plotting style using Matplotlib rcParams.
+def set_publication_style() -> None:
+    """Configure an elegant publication-oriented Matplotlib style.
 
     The style uses Matplotlib's built-in mathtext engine and does not require
     an external LaTeX installation.
@@ -14,14 +14,14 @@ def set_plot_style() -> None:
     mpl.rcParams.update(
         {
             "figure.dpi": 120,
-            "savefig.dpi": 300,
-            "figure.figsize": (6.0, 4.0),
+            "savefig.dpi": 400,
+            "figure.figsize": (6.4, 4.2),
             "figure.constrained_layout.use": False,
             "font.family": "serif",
             "font.serif": ["DejaVu Serif", "STIXGeneral", "Times New Roman"],
             "mathtext.fontset": "stix",
             "mathtext.default": "regular",
-            "axes.titlesize": 13,
+            "axes.titlesize": 14,
             "axes.labelsize": 12,
             "axes.linewidth": 0.9,
             "axes.grid": True,
@@ -38,13 +38,18 @@ def set_plot_style() -> None:
             "ytick.major.size": 4,
             "xtick.minor.size": 2,
             "ytick.minor.size": 2,
-            "legend.fontsize": 10,
+            "legend.fontsize": 9.5,
             "legend.frameon": True,
             "legend.framealpha": 0.9,
             "legend.edgecolor": "0.8",
-            "lines.linewidth": 1.8,
-            "lines.markersize": 5,
+            "lines.linewidth": 1.9,
+            "lines.markersize": 5.5,
             "savefig.bbox": "tight",
         }
     )
+
+
+def set_plot_style() -> None:
+    """Backward-compatible alias for ``set_publication_style``."""
+    set_publication_style()
 
