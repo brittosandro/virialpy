@@ -17,6 +17,59 @@ virialpy ar2 full-pipeline
 
 Os scripts continuam disponíveis e são chamados internamente pela CLI.
 
+## CLI geral por argumentos
+
+A CLI geral permite executar as etapas principais com caminhos, colunas,
+potenciais, integradores e unidades definidos no terminal:
+
+```bash
+virialpy run fit \
+    --system ar2 \
+    --potential-data data/raw/ar2/ar2_cep_bsse.csv \
+    --r-column "r(angstrom)" \
+    --energy-column "E_int_CP(kcal/mol)" \
+    --potentials all \
+    --output-dir data/results/ar2_general_cli
+
+virialpy run b2 \
+    --system ar2 \
+    --experimental-data data/raw/ar2/b2_experimental.csv \
+    --temperature-column "Temperatura" \
+    --potentials all \
+    --integrators all \
+    --results-dir data/results/ar2_general_cli \
+    --energy-unit "kcal/mol" \
+    --distance-unit angstrom \
+    --r-min 2.5 \
+    --r-max 30.0
+
+virialpy run validate \
+    --system ar2 \
+    --experimental-data data/raw/ar2/b2_experimental.csv \
+    --temperature-column "Temperatura" \
+    --b2-column "B(segundo coef. virial) [cm³/mol]" \
+    --results-dir data/results/ar2_general_cli \
+    --figures-dir outputs/figures/ar2_general_cli
+
+virialpy run full \
+    --system ar2 \
+    --potential-data data/raw/ar2/ar2_cep_bsse.csv \
+    --experimental-data data/raw/ar2/b2_experimental.csv \
+    --r-column "r(angstrom)" \
+    --energy-column "E_int_CP(kcal/mol)" \
+    --temperature-column "Temperatura" \
+    --b2-column "B(segundo coef. virial) [cm³/mol]" \
+    --potentials all \
+    --integrators all \
+    --energy-unit "kcal/mol" \
+    --distance-unit angstrom \
+    --r-min 2.5 \
+    --r-max 30.0 \
+    --results-dir data/results/ar2_general_cli \
+    --figures-dir outputs/figures/ar2_general_cli \
+    --reports-dir outputs/reports/ar2_general_cli
+```
+
 ## 1. Dados de entrada U(r)
 
 O arquivo principal de energia potencial está em:
