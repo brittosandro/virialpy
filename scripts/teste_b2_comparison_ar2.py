@@ -8,7 +8,11 @@ from virialpy.integrators import (
     SimpsonIntegrator,
     TrapezoidIntegrator,
 )
-from virialpy.workflows import load_model_parameters_from_results, run_b2_comparison_workflow
+from virialpy.workflows import (
+    load_model_parameters_from_results,
+    load_temperatures_from_csv,
+    run_b2_comparison_workflow,
+)
 
 
 def main() -> None:
@@ -21,7 +25,10 @@ def main() -> None:
             {"name": "ryd6", "label": "Rydberg 6"},
         ],
     )
-    temperatures = [100, 150, 200, 250, 300, 350, 400]
+    temperatures = load_temperatures_from_csv(
+        "data/raw/ar2/b2_experimental.csv",
+        temperature_column="Temperatura",
+    )
     integrators = [
         {
             "name": "scipy_quad",
@@ -61,4 +68,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
