@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from virialpy.integrators import (
     GaussianQuadratureIntegrator,
+    MonteCarloIntegrator,
     ScipyQuadIntegrator,
     SimpsonIntegrator,
     TrapezoidIntegrator,
@@ -49,6 +50,11 @@ def main() -> None:
             "name": "trapezoid",
             "label": "Trapezoid",
             "integrator": TrapezoidIntegrator(n_points=20000),
+        },
+        {
+            "name": "monte_carlo",
+            "label": "Monte Carlo",
+            "integrator": MonteCarloIntegrator(n_samples=200000, random_state=42),
         },
     ]
 

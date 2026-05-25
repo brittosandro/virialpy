@@ -31,6 +31,11 @@ from virialpy.plotting.final_b2_plots import (
     plot_final_method_comparison,
     plot_final_metric_ranking,
 )
+from virialpy.plotting.monte_carlo_plots import (
+    plot_monte_carlo_difference,
+    plot_monte_carlo_summary_metrics,
+    plot_monte_carlo_vs_reference,
+)
 from virialpy.plotting.style import set_plot_style, set_publication_style
 
 __all__ = [
@@ -50,6 +55,9 @@ __all__ = [
     "plot_final_metric_ranking",
     "plot_multiple_fits",
     "plot_multiple_residuals",
+    "plot_monte_carlo_difference",
+    "plot_monte_carlo_summary_metrics",
+    "plot_monte_carlo_vs_reference",
     "plot_partitioned_contributions",
     "set_plot_style",
     "set_publication_style",
