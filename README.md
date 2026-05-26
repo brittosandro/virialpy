@@ -141,6 +141,16 @@ The example [configs/ar2.yaml](configs/ar2.yaml) defines the molecular system, i
 
 YAML execution can control potential fitting, direct `B(T)`, experimental validation, partitioned `B(T)`, direct-vs-partitioned comparison, Monte Carlo plots, final figures and final CSV/LaTeX tables.
 
+## Web Interface
+
+A first Streamlit interface is available for running existing YAML workflows and viewing generated tables and figures:
+
+```bash
+streamlit run app/streamlit_app.py
+```
+
+The app uses the YAML files in `configs/`, including `configs/ar2.yaml` and `configs/kr2.yaml`, and displays outputs from the configured results, figures and reports directories.
+
 ## Outputs
 
 Project outputs follow these conventions:
