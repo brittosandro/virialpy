@@ -74,6 +74,55 @@ def run_config(
     typer.echo(f"Configuration run completed. Results: {outputs['results_dir']}")
 
 
+@app.command("compare-systems")
+def compare_systems(
+    config_paths: Annotated[
+        list[Path],
+        typer.Argument(help="YAML configuration files for the systems to compare."),
+    ],
+) -> None:
+    """Compare multiple systems from their YAML configuration files."""
+    from virialpy.config import load_config
+    from virialpy.workflows import run_multisystem_analysis
+
+    if not config_paths:
+        _abort(ValueError("At least one YAML configuration file is required."))
+
+    system_results = []
+    try:
+        for config_path in config_paths:
+            config = load_config(config_path)
+            system = config.get("system")
+            if not system:
+                raise ValueError(f"{config_path} is missing required field: system")
+            outputs = config.get("outputs")
+            if outputs is None:
+                raise ValueError(f"{config_path} is missing required section: outputs")
+            if not isinstance(outputs, dict):
+                raise ValueError(f"{config_path} section 'outputs' must be a mapping.")
+            if "results_dir" not in outputs:
+                raise ValueError(f"{config_path} is missing required field: outputs.results_dir")
+            system_results.append(
+                {
+                    "system": str(system),
+                    "results_dir": str(outputs["results_dir"]),
+                }
+            )
+
+        system_names = ", ".join(item["system"] for item in system_results)
+        typer.echo(f"Comparing systems: {system_names}")
+        outputs = run_multisystem_analysis(
+            system_results,
+            output_figures_dir="outputs/figures/multisystem",
+            output_reports_dir="outputs/reports/multisystem",
+        )
+    except Exception as exc:
+        _abort(exc)
+
+    typer.echo(f"Multi-system figures saved to {outputs['figures_dir']}")
+    typer.echo(f"Multi-system tables saved to {outputs['tables_dir']}")
+
+
 def normalize_potentials(potentials: list[str]) -> list[str]:
     """Normalize potential names accepted by the general CLI."""
     supported = ["lj", "ilj", "ryd6"]

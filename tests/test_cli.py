@@ -11,6 +11,13 @@ def test_cli_help_works() -> None:
 
     assert result.exit_code == 0
     assert "ar2" in result.output
+    assert "compare-systems" in result.output
+
+
+def test_cli_compare_systems_help_works() -> None:
+    result = runner.invoke(app, ["compare-systems", "--help"])
+
+    assert result.exit_code == 0
 
 
 def test_cli_ar2_help_works() -> None:
@@ -34,4 +41,3 @@ def test_cli_ar2_help_lists_main_commands() -> None:
         "full-pipeline",
     ]:
         assert command in result.output
-

@@ -36,6 +36,12 @@ from virialpy.plotting.monte_carlo_plots import (
     plot_monte_carlo_summary_metrics,
     plot_monte_carlo_vs_reference,
 )
+from virialpy.plotting.multisystem_plots import (
+    plot_best_b2_model_by_system,
+    plot_best_integrator_by_system,
+    plot_direct_partitioned_comparison,
+    plot_system_ranking,
+)
 from virialpy.plotting.style import set_plot_style, set_publication_style
 
 __all__ = [
@@ -45,7 +51,10 @@ __all__ = [
     "plot_b2_methods_vs_experiment",
     "plot_b2_metrics",
     "plot_b2_residuals",
+    "plot_best_b2_model_by_system",
+    "plot_best_integrator_by_system",
     "plot_comparison_diagnostics",
+    "plot_direct_partitioned_comparison",
     "plot_fit_diagnostics",
     "plot_fit_residuals",
     "plot_fit_result",
@@ -59,6 +68,7 @@ __all__ = [
     "plot_monte_carlo_summary_metrics",
     "plot_monte_carlo_vs_reference",
     "plot_partitioned_contributions",
+    "plot_system_ranking",
     "set_plot_style",
     "set_publication_style",
 ]
