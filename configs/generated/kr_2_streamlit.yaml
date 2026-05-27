@@ -1,0 +1,53 @@
+system: kr_2
+data:
+  potential_data: data/raw/kr_2/kr2_cep_bsse.csv
+  experimental_data: data/raw/kr_2/experimental_coef_virial_kr2.csv
+  r_column: r(angstrom)
+  energy_column: r(angstrom)
+  temperature_column: Temperatura (K)
+  b2_column: Temperatura (K)
+models:
+  potentials:
+  - lj
+  - ilj
+  - ryd6
+integrators:
+  names:
+  - scipy_quad
+  - gaussian
+  - simpson
+  - trapezoid
+  - monte_carlo
+units:
+  distance_unit: angstrom
+  energy_unit: kcal/mol
+b2:
+  r_min: 2.5
+  r_max: 30.0
+partitioned:
+  enabled: true
+  r1: 2.86
+  r2: 3.89
+  r3: 8.0
+  r4: 15.0
+  integrator_b2:
+    name: gaussian
+    n_points: 6
+  integrator_b3:
+    name: gaussian
+    n_points: 10
+  integrator_b4:
+    name: gaussian
+    n_points: 24
+outputs:
+  results_dir: data/results/kr_2_streamlit
+  figures_dir: outputs/figures/kr_2_streamlit
+  reports_dir: outputs/reports/kr_2_streamlit
+run:
+  fit: true
+  b2: true
+  validate: true
+  partitioned: true
+  method_comparison: true
+  monte_carlo_plots: true
+  final_outputs: true

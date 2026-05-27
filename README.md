@@ -151,6 +151,10 @@ streamlit run app/streamlit_app.py
 
 The app uses the YAML files in `configs/`, including `configs/ar2.yaml` and `configs/kr2.yaml`, and displays outputs from the configured results, figures and reports directories.
 
+The second web-interface phase can also create a new molecular-system workflow from uploaded CSV files. It saves the uploaded data, guides fitting, B(T) calculation and validation step by step, generates a YAML file in `configs/generated/`, and displays the generated tables and figures.
+
+Plotly is used for interactive visual exploration inside Streamlit, while Matplotlib remains responsible for static publication-style figures and report exports.
+
 ## Outputs
 
 Project outputs follow these conventions:

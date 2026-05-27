@@ -30,6 +30,7 @@ dependencies = [
   "seaborn",
   "lmfit",
   "PyYAML",
+  "plotly",
   "streamlit",
   "typer",
   "pytest",
