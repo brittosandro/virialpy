@@ -1,11 +1,12 @@
+-e .
 numpy
 scipy
 pandas
 matplotlib
-seaborn
-lmfit
-PyYAML
 plotly
 streamlit
 typer
+lmfit
+PyYAML
+seaborn
 pytest
