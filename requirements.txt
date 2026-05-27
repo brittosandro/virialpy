@@ -1,0 +1,11 @@
+numpy
+scipy
+pandas
+matplotlib
+seaborn
+lmfit
+PyYAML
+plotly
+streamlit
+typer
+pytest

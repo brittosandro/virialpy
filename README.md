@@ -155,6 +155,13 @@ The second web-interface phase can also create a new molecular-system workflow f
 
 Plotly is used for interactive visual exploration inside Streamlit, while Matplotlib remains responsible for static publication-style figures and report exports.
 
+### Deploy on Streamlit Community Cloud
+
+To deploy the web interface on Streamlit Community Cloud, publish this repository on GitHub and use:
+
+- Main file path: `app/streamlit_app.py`
+- Dependencies file: `requirements.txt`
+
 ## Outputs
 
 Project outputs follow these conventions:

@@ -21,6 +21,13 @@ The app requires `streamlit` and `plotly`, which are listed as project dependenc
 streamlit run app/streamlit_app.py
 ```
 
+## Deploy on Streamlit Community Cloud
+
+To deploy this interface on Streamlit Community Cloud, publish the repository on GitHub and configure:
+
+- Main file path: `app/streamlit_app.py`
+- Dependencies file: `requirements.txt`
+
 ## Usage
 
 Use the sidebar to choose:
